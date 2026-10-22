@@ -193,10 +193,12 @@ footer{text-align:center;padding:40px 0 50px;color:#999;font-size:13px}
   .palette div span{font-size:11px;margin-top:12px}
   .mood{width:calc(100% - 20px)}
   .mood .phone-card{min-height:auto;aspect-ratio:1}
-  .hero{aspect-ratio:auto;height:620px;min-height:0}
-  .hero .coaster{top:auto;bottom:4%;width:190%;left:-45%}
-  .hero .big{font-size:14cqw}
+  .hero{min-height:0}
   .pc.note p br,.lead br{display:none}
+}
+@media (max-width:600px){
+  .hero{aspect-ratio:auto;height:620px}
+  .hero .coaster{top:auto;bottom:4%;width:190%;left:-45%}
   .hero .big{top:90px;bottom:auto;font-size:12.5cqw}
   .big .l1{padding-left:6cqw}.big .l2{padding-left:16cqw}
   .meta{flex-wrap:wrap;gap:16px 28px;left:24px;bottom:24px}
