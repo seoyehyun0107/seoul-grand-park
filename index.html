@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seoul Grand Park — 앱 서비스 리뉴얼</title>
+<meta name="description" content="서울대공원 앱 UI/UX 리디자인 프로젝트 · Designer Seo Ye Hyun">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --navy:#082F45; --teal-d:#49C1C2; --teal:#73E0E1; --lime:#E0FA91; --gray:#F2F4F7;
+  --ink:#111; --sub:#555;
+  --r:clamp(24px,2.6vw,50px);
+  --inner:min(1420px, calc(100% - clamp(48px,18vw,500px)));
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Pretendard Variable",Pretendard,-apple-system,system-ui,sans-serif;color:var(--ink);background:#fff;
+  -webkit-font-smoothing:antialiased;word-break:keep-all;overflow-x:hidden}
+img{display:block;max-width:100%}
+.panel{margin:0 10px;border-radius:var(--r);background:var(--gray);position:relative;overflow:hidden}
+.inner{width:var(--inner);margin:0 auto}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+/* ---------- HERO ---------- */
+.hero{margin:10px;border-radius:var(--r);background:linear-gradient(60deg,#73E0E1,#8BEBEC);
+  position:relative;overflow:hidden;aspect-ratio:1900/1199;container-type:inline-size;color:#fff;min-height:560px}
+.hero .top{position:absolute;inset:3.2cqw 2.8cqw auto;display:flex;justify-content:space-between;
+  font-weight:700;font-size:clamp(15px,1.35cqw,26px);z-index:3}
+.big{font-weight:700;letter-spacing:-.06em;line-height:.93;color:#F2F4F7;font-size:10.6cqw;position:relative;z-index:1}
+.big span{display:block;white-space:nowrap}
+.hero .big{position:absolute;top:13.5cqw;left:0;right:0}
+.big .l1{padding-left:15.2cqw}.big .l2{padding-left:25cqw}
+.hero .coaster{max-width:none;position:absolute;left:-2.4%;top:11.3%;width:102.4%;z-index:2;animation:float 7s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-1.2%)}}
+.meta{position:absolute;left:2.5cqw;bottom:3.8cqw;display:flex;gap:4cqw;z-index:3;font-size:clamp(13px,1.05cqw,20px);line-height:1.3}
+.meta dt{font-weight:400;opacity:.95}.meta dd{font-weight:700}
+
+/* ---------- section head (label + text) ---------- */
+.head{display:grid;grid-template-columns:36% 1fr;gap:24px;padding:clamp(72px,8vw,150px) 0 clamp(56px,6vw,120px)}
+.head h2{font-size:clamp(18px,1.25vw,24px);font-weight:700;letter-spacing:.01em}
+.head p{font-size:clamp(15px,1.05vw,20px);line-height:1.8;color:#222}
+
+/* ---------- BACKGROUND ---------- */
+.bg-sec{padding:clamp(56px,4.5vw,90px) 0 clamp(48px,4vw,80px);text-align:center}
+.eyebrow{font-weight:700;font-size:clamp(16px,1.2vw,23px)}
+.bg-sec h3{font-size:clamp(28px,2.4vw,46px);font-weight:700;letter-spacing:-.03em;margin:10px 0 28px}
+.bg-sec .lead{font-size:clamp(14px,1.05vw,20px);line-height:1.8;color:#333;margin-bottom:clamp(40px,4.8vw,92px)}
+.bg-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;text-align:left}
+.bg-card{border-radius:30px;overflow:hidden;min-height:clamp(380px,31vw,594px);position:relative;background:#fff}
+.bg-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) brightness(.85)}
+.bg-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(0,0,0,.45))}
+.bg-photo .cap{position:absolute;left:clamp(20px,1.7vw,32px);bottom:clamp(24px,4.6vw,88px);z-index:1;display:flex;gap:16px;color:var(--teal);
+  font-weight:700;font-size:clamp(17px,1.45vw,28px);line-height:1.3}
+.num{color:#bbb;font-weight:400;font-size:.75em;padding-top:.3em}
+.bg-photo .cap b{font-size:1.45em}
+.bg-chart{padding:clamp(28px,3.3vw,64px) clamp(24px,3.8vw,72px) 36px;display:flex;flex-direction:column}
+.bg-chart h4{display:flex;gap:16px;font-size:clamp(17px,1.45vw,28px);line-height:1.4;font-weight:700;color:#1a2230}
+.chart{margin-top:clamp(24px,2.4vw,46px);background:var(--gray);border-radius:40px 40px 0 0;height:clamp(200px,15vw,288px);
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:end;padding:0 clamp(24px,3vw,58px);position:relative}
+.bar{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.bar strong{font-size:clamp(15px,1.25vw,24px);margin-bottom:8px}
+.bar i{display:block;width:100%;max-width:154px;border-radius:30px 30px 0 0;background:#B5B5B5;height:0;transition:height 1.4s cubic-bezier(.2,.8,.2,1)}
+.bar.b2 i{background:var(--teal)}
+.in .bar.b1 i{height:68%}.in .bar.b2 i{height:39%}
+.pct{align-self:center;padding:0 14px 40px;font-weight:800;font-size:clamp(32px,2.6vw,50px);color:#1a2230;position:relative}
+.pct small{font-size:.6em}
+.pct svg{position:absolute;left:0;top:105%;width:100%}
+.years{display:grid;grid-template-columns:1fr auto 1fr;padding:14px clamp(24px,3vw,58px) 0;font-weight:600;font-size:clamp(14px,1vw,19px)}
+.years span{text-align:center}.years span:nth-child(2){width:clamp(80px,7vw,130px)}
+.src{margin-top:auto;padding-top:40px;text-align:right;color:#888;font-size:14px}
+
+/* ---------- PROBLEM ---------- */
+.prob{display:grid;grid-template-columns:1fr 1fr;gap:25px;width:min(1514px,calc(100% - clamp(48px,10vw,406px)));margin:0 auto}
+.pc{border-radius:var(--r);min-height:clamp(260px,18.6vw,358px);overflow:hidden;position:relative}
+.pc.shot{background:var(--gray);display:grid;grid-template-columns:40% 1fr;align-items:stretch}
+.pc.shot .lab{padding:clamp(24px,2.4vw,46px);display:flex;flex-direction:column;justify-content:space-between}
+.badge{display:inline-grid;place-items:center;width:40px;height:40px;background:var(--teal-d);color:#fff;font-size:28px;border-radius:3px}
+.pc.shot h3{font-size:clamp(22px,1.55vw,30px);font-weight:700;padding-bottom:clamp(8px,1.4vw,26px)}
+.pc.shot .sc{position:relative}
+.pc.shot .sc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left top}
+.pc.note{background:var(--teal);color:#fff;padding:clamp(28px,3.4vw,66px) clamp(28px,4vw,76px);display:flex;flex-direction:column;justify-content:space-between;gap:40px}
+.pc.note h3{font-size:clamp(24px,1.6vw,31px);font-weight:700}
+.pc.note p{font-size:clamp(15px,1.1vw,21px);line-height:1.65}
+
+/* ---------- PERSONA ---------- */
+.persona{padding:clamp(40px,2.2vw,44px) 0 clamp(40px,3vw,58px)}
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,2.6vw,50px);width:min(1456px,calc(100% - clamp(48px,12vw,464px)));margin:0 auto}
+.pcol{display:flex;flex-direction:column;gap:30px}
+.pcol.low{padding-top:clamp(0px,5.6vw,108px)}
+.pcol img{border-radius:22px;aspect-ratio:452/598;object-fit:cover;width:100%}
+.quote{background:#fff;border-radius:22px;aspect-ratio:452/598;padding:clamp(24px,2.1vw,40px);display:flex;flex-direction:column;justify-content:space-between}
+.quote q{font-size:clamp(22px,2vw,38px);font-weight:500;line-height:1.42;letter-spacing:-.02em}
+.quote q::before{content:"“"}.quote q::after{content:"”"}
+.quote span{font-size:clamp(16px,1.25vw,24px)}
+
+/* ---------- BENCHMARK ---------- */
+.bench{padding:clamp(80px,9vw,170px) 0 clamp(80px,9vw,170px)}
+.cap1{width:min(1412px,calc(100% - 48px));margin:0 auto;border-radius:999px;background:#CDEEEF;padding:clamp(10px,1.3vw,26px)}
+.cap2{border-radius:999px;background:#A0E6E8;padding:clamp(10px,1.3vw,26px)}
+.cap3{border-radius:999px;background:#7BE0E2;padding:clamp(10px,1.2vw,22px) clamp(16px,1.6vw,30px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto minmax(0,1.15fr);align-items:center;gap:clamp(10px,1.2vw,22px)}
+.circ{width:100%;min-width:0;aspect-ratio:1;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;color:var(--teal-d);font-weight:600;font-size:clamp(12px,1vw,19px);line-height:1.55;padding:6%}
+.circ img{height:clamp(30px,3vw,58px);width:auto;max-width:80%;margin-bottom:clamp(8px,1.4vw,26px);object-fit:contain}
+.circ img.wide{height:clamp(26px,2.4vw,46px)}
+.chev{color:#fff;flex:none;width:clamp(10px,1vw,18px)}
+.circ.end{background:var(--teal-d);color:#fff;font-weight:700;font-size:clamp(13px,1.1vw,21px)}
+
+/* ---------- DESIGN SYSTEM ---------- */
+.ds{width:min(1480px,calc(100% - clamp(48px,18vw,440px)));margin:0 auto}
+.ds-top{display:grid;grid-template-columns:1fr 1fr;align-items:center;min-height:clamp(320px,34vw,650px);position:relative}
+.ds-top .big2{font-size:clamp(56px,7.2vw,138px);font-weight:700;letter-spacing:-.055em;line-height:1.07;color:var(--teal)}
+.ds-top img{width:90%;max-width:760px;justify-self:end;animation:float 9s ease-in-out infinite}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);margin-top:20px}
+.palette div i{display:block;height:24px}
+.palette div span{display:block;margin-top:28px;font-size:14px;color:#777;line-height:1.4}
+
+/* ---------- MOOD ---------- */
+.mood{display:grid;grid-template-columns:613fr 1225fr;gap:20px;width:calc(100% - 60px);max-width:1860px;margin:clamp(100px,11vw,210px) auto 0}
+.mood .phone-card{border-radius:30px;background:linear-gradient(160deg,#73E0E1 40%,#E8E65A 110%);display:grid;place-items:center;overflow:hidden;min-height:500px}
+.mood .phone-card img{width:150%;max-width:none;transform:translate(2%,14%)}
+.mood-r{display:grid;grid-template-rows:auto auto;gap:20px}
+.tags{background:var(--gray);border-radius:30px;min-height:clamp(260px,26.5vw,508px);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:22px;padding:30px}
+.trow{display:flex;gap:20px;flex-wrap:wrap;justify-content:center}
+.tag{height:clamp(48px,3.4vw,66px);padding:0 clamp(18px,1.25vw,24px);border-radius:999px;background:var(--teal);color:#fff;font-size:clamp(20px,1.6vw,30px);display:grid;place-items:center;
+  transition:transform .3s}
+.tag:hover{transform:translateY(-4px) rotate(-2deg)}
+.tag.img{padding:0;width:clamp(80px,6vw,118px);overflow:hidden}
+.tag.img img{width:100%;height:100%;object-fit:cover}
+.squares{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.squares>div{aspect-ratio:1;border-radius:30px;overflow:hidden}
+.squares img{width:100%;height:100%;object-fit:cover}
+
+/* ---------- UI KIT ---------- */
+.kit{padding:clamp(40px,6.2vw,120px) 0}
+.kit img{width:min(1660px,calc(100% - 48px));margin:0 auto;border-radius:20px}
+
+/* ---------- FEATURES ---------- */
+.ghost{color:var(--gray);font-size:min(10.2vw,196px);margin:clamp(80px,9vw,170px) 0 clamp(80px,10vw,190px)}
+.ghost .l1{padding-left:8%}.ghost .l2{padding-left:31.5%}
+.feat{display:grid;grid-template-columns:950fr 950fr;align-items:center;gap:0;margin:0 10px 50px}
+.feat .stage{background:var(--gray);border-radius:var(--r);display:flex;justify-content:center;gap:clamp(16px,2vw,40px);overflow:hidden;padding:clamp(48px,4.4vw,86px) 20px}
+.feat .txt{padding:0 clamp(24px,8vw,160px)}
+.feat .txt h3{font-size:clamp(30px,2.4vw,46px);font-weight:700;letter-spacing:-.03em;line-height:1.25;margin:clamp(20px,2.4vw,46px) 0 clamp(40px,7vw,130px)}
+.feat .txt p{font-size:clamp(15px,1.05vw,20px);line-height:1.8;max-width:430px}
+.feat.rev .stage{order:2}
+.feat.three{grid-template-columns:1192fr 708fr}
+.feat.clip .stage{padding-bottom:0;align-items:flex-start;height:clamp(520px,56vw,1076px)}
+
+.phone{width:min(430px,70%);aspect-ratio:430/880;background:#000;border-radius:16% / 7.8%;padding:3.2%;position:relative;
+  box-shadow:0 40px 80px -20px rgba(8,47,69,.25);flex:none}
+.phone .scr{position:absolute;inset:3.2%;background:#fff;border-radius:13% / 6.2%;overflow:hidden}
+.phone .scr img{position:absolute;top:1.5%;left:0;width:100%}
+.phone .island{position:absolute;top:2.6%;left:50%;transform:translateX(-50%);width:28%;height:3.6%;background:#000;border-radius:99px;z-index:2}
+.phone .island::after{content:"";position:absolute;right:12%;top:30%;height:40%;aspect-ratio:1;border-radius:50%;background:#333}
+.phone .bar-h{position:absolute;bottom:1.6%;left:50%;transform:translateX(-50%);width:34%;height:.5%;background:#111;border-radius:9px}
+.feat .phone.sm{width:min(360px,44%)}
+.feat.clip .phone{width:min(590px,64%);margin-left:auto;margin-right:9%}
+
+/* ---------- END ---------- */
+.outro{margin-top:clamp(60px,6vw,110px);aspect-ratio:1900/1196;background:var(--teal);min-height:560px}
+.outro .big{top:auto;bottom:0;position:absolute;inset:auto 0 auto 0;top:15cqw}
+.outro .big .l1{padding-left:8.2cqw}.outro .big .l2{padding-left:31.5cqw}
+.outro .phone-tilt{position:absolute;left:28%;top:-10%;width:52%;z-index:2;animation:float 7s ease-in-out infinite}
+footer{text-align:center;padding:40px 0 50px;color:#999;font-size:13px}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:900px){
+  .head{grid-template-columns:1fr;gap:16px}
+  .bg-grid,.prob,.pg,.mood,.feat,.feat.three,.ds-top{grid-template-columns:1fr}
+  .prob .pc:nth-child(4n+1){order:0}
+  .prob{gap:16px}
+  .pc.shot{grid-template-columns:42% 1fr}
+  .pcol.low{padding-top:0}
+  .pg{gap:20px}
+  .quote{aspect-ratio:auto;min-height:260px;gap:40px}
+  .feat .stage,.feat.rev .stage{order:0}
+  .feat{gap:36px;margin-bottom:80px}
+  .feat .txt h3{margin-bottom:20px}
+  .feat.clip .stage{height:auto;padding-bottom:0;max-height:620px}
+  .feat.clip .phone{margin:0 auto}
+  .cap1,.cap2,.cap3{border-radius:60px}
+  .cap3{grid-template-columns:1fr;justify-items:center;padding:20px}
+  .circ{width:min(260px,70%);font-size:15px}
+  .chev{transform:rotate(90deg)}
+  .ds-top img{justify-self:center;max-width:420px}
+  .palette{grid-template-columns:repeat(5,1fr)}
+  .palette div span{font-size:11px;margin-top:12px}
+  .mood{width:calc(100% - 20px)}
+  .mood .phone-card{min-height:auto;aspect-ratio:1}
+  .hero{aspect-ratio:auto;height:620px;min-height:0}
+  .hero .coaster{top:auto;bottom:4%;width:190%;left:-45%}
+  .hero .big{font-size:14cqw}
+  .pc.note p br,.lead br{display:none}
+  .hero .big{top:90px;bottom:auto;font-size:12.5cqw}
+  .big .l1{padding-left:6cqw}.big .l2{padding-left:16cqw}
+  .meta{flex-wrap:wrap;gap:16px 28px;left:24px;bottom:24px}
+  .outro .big{font-size:12.5cqw;top:90px}
+  .outro .big .l1{padding-left:6cqw}.outro .big .l2{padding-left:16cqw}
+  .outro .phone-tilt{width:130%;max-width:none;left:-15%;top:auto;bottom:6%}
+  .ghost{font-size:12.5vw}.ghost .l1{padding-left:6%}.ghost .l2{padding-left:16%}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="top"><span>서울대공원</span><span>앱 서비스 리뉴얼</span></div>
+  <h1 class="big"><span class="l1">SEOUL</span><span class="l2">GRAND PARK</span></h1>
+  <img class="coaster" src="assets/coaster.webp" alt="">
+  <dl class="meta">
+    <div><dt>Project</dt><dd>UI/UX Redesign</dd></div>
+    <div><dt>Participation</dt><dd>UI/UX 100%</dd></div>
+    <div><dt>Designer</dt><dd>Seo Ye Hyun</dd></div>
+  </dl>
+</header>
+
+<!-- OVERVIEW -->
+<section class="inner head rv">
+  <h2>PROJECT OVERVIEW</h2>
+  <p>저는 매년 서울대공원을 방문할 만큼 서울대공원을 좋아합니다. 넓은 공간 속에서 자연을 가까이 느낄 수 있고, 다양한 시설과 활동을 경험할 수 있다는 점이 서울대공원만의 매력이라고 생각합니다. 하지만 이러한 장점에도 불구하고 앱을 이용하는 과정에서는 원하는 정보를 찾기 어렵거나 기능을 활용하기 불편한 부분이 있었습니다. 이에 서울대공원의 매력을 더욱 효과적으로 전달할 수 있도록 앱 리뉴얼 프로젝트를 진행하였습니다.</p>
+</section>
+
+<!-- BACKGROUND -->
+<section class="panel bg-sec">
+  <div class="inner">
+    <div class="rv">
+      <p class="eyebrow">BACKGROUND</p>
+      <h3>넓은 공간 속 정보 탐색의 어려움</h3>
+      <p class="lead">서울대공원은 넓은 규모와 다양한 시설을 갖춘 공간으로, 방문객의 원활한 이용을 위해 앱의 역할이 중요합니다.<br>하지만 현재 앱은 정보 탐색과 기능 접근 과정에서 불편함이 존재하여 사용자 경험 개선의 필요성이 있었습니다.</p>
+    </div>
+    <div class="bg-grid">
+      <div class="bg-card bg-photo rv">
+        <img src="assets/aerial.webp" alt="서울대공원 항공 사진">
+        <div class="cap"><span class="num">01.</span><div><b>276만 평</b> 이라는 압도적 크기.<br>디지털 가이드 앱이 필수적입니다.</div></div>
+      </div>
+      <div class="bg-card bg-chart rv d1" id="chart">
+        <h4><span class="num">02.</span><span>압도적인 콘텐츠를 보유하고 있음에도,<br>방문객의 발길은 점점 멀어지고 있습니다.</span></h4>
+        <div class="chart">
+          <div class="bar b1"><strong>282만 명</strong><i></i></div>
+          <div class="pct">45<small>%</small>
+            <svg viewBox="0 0 100 40" fill="none" stroke="#73E0E1" stroke-width="1.6"><path d="M2 6 L94 34 M84 34 L94 34 L88 25"/></svg>
+          </div>
+          <div class="bar b2"><strong>154만 명</strong><i></i></div>
+        </div>
+        <div class="years"><span>2014년</span><span></span><span>2022~2026년</span></div>
+        <p class="src">출처: 서울대공원 제출 자료</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="inner head rv">
+  <h2>PROBLEM</h2>
+  <p>서울대공원 앱을 분석한 결과, 사용자 경험을 저해하는 여러 문제점을 발견할 수 있었습니다. 중복된 기능 구조, 외부 사이트 이동 유도, 비직관적인 길찾기, 숨겨진 마이페이지 등을 중심으로 개선이 필요한 핵심 문제점을 도출하였습니다.</p>
+</section>
+<div class="prob">
+  <div class="pc shot rv"><div class="lab"><span class="badge">1</span><h3>홈 화면</h3></div><div class="sc"><img src="assets/prob1.webp" alt="기존 홈 화면"></div></div>
+  <div class="pc note rv d1"><h3>중복된 기능 구조</h3><p>홈 화면과 공원길찾기 메뉴에서 동일한 길찾기 기능을<br>제공하여 기능 구조가 중복되어 있었습니다.</p></div>
+  <div class="pc note rv"><h3>외부 사이트 이동 유도</h3><p>탭바에 예약안내 메뉴가 있지만, 실제 예약을 진행하려면<br>외부 사이트로 이동해야 하는 불편함이 있었습니다.</p></div>
+  <div class="pc shot rv d1"><div class="lab"><span class="badge">2</span><h3>예약안내</h3></div><div class="sc"><img src="assets/prob2.webp" alt="기존 예약안내 화면"></div></div>
+  <div class="pc shot rv"><div class="lab"><span class="badge">3</span><h3>공원길찾기</h3></div><div class="sc"><img src="assets/prob3.webp" alt="기존 공원길찾기 화면"></div></div>
+  <div class="pc note rv d1"><h3>비직관적인 길찾기</h3><p>텍스트 중심의 위치 안내 방식으로 사용자가<br>장소를 직관적으로 파악하기 어려웠습니다.</p></div>
+  <div class="pc note rv"><h3>숨겨진 마이페이지</h3><p>마이페이지가 햄버거 메뉴 내부에 위치해 있어 사용자가<br>기능을 찾고 접근하는 데 불편함이 있었습니다.</p></div>
+  <div class="pc shot rv d1"><div class="lab"><span class="badge">4</span><h3>마이페이지</h3></div><div class="sc"><img src="assets/prob4.webp" alt="기존 마이페이지 화면"></div></div>
+</div>
+
+<!-- PERSONA -->
+<section class="inner head rv">
+  <h2>PERSONA</h2>
+  <p>서울대공원을 방문하는 다양한 유형의 사용자를 가정하여 페르소나를 설정하였습니다. 앱 이용 과정에서 겪을 수 있는 불편 사항과 요구사항을 분석하여 서비스 개선 방향을 도출하였습니다.</p>
+</section>
+<section class="panel persona">
+  <div class="pg">
+    <div class="pcol low rv">
+      <img src="assets/persona1.webp" alt="지도를 보며 휴대폰을 확인하는 방문객">
+      <div class="quote"><q>아이와 함께 넓은 공원을 다니다 보니 길을 찾는 데 시간을 너무 많이 써요.</q><span>김민지 | 38세 | 주부</span></div>
+    </div>
+    <div class="pcol rv d1">
+      <div class="quote"><q>원하는 기능을 찾으려면 메뉴를 계속 눌러봐야 해서 불편해요.</q><span>이준호 | 17세 | 고등학생</span></div>
+      <img src="assets/persona2.webp" alt="계단에 앉아 휴대폰을 보는 학생">
+    </div>
+    <div class="pcol low rv d2">
+      <img src="assets/persona3.webp" alt="피크닉 중 휴대폰을 보는 방문객">
+      <div class="quote"><q>예매하려고 다른 사이트로 이동하는 과정이 번거롭게 느껴져요.</q><span>박서연 | 26세 | 회사원</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- BENCHMARK -->
+<section class="inner head rv">
+  <h2>BENCHMARKING</h2>
+  <p>사용자가 공원 내 정보를 더욱 쉽고 빠르게 확인할 수 있는 환경을 제공하기 위해 테마파크 서비스와 위치 기반 서비스를 벤치마킹하였습니다. 이를 통해 서비스에 적용할 수 있는 정보 구조와 편의 기능을 분석하였습니다.</p>
+</section>
+<section class="panel bench">
+  <div class="cap1 rv"><div class="cap2"><div class="cap3">
+    <div class="circ"><img src="assets/logo-everland.webp" alt="Everland">실시간 날씨, 운영<br>시간, 교통정보를<br>제공하는 편의 기능</div>
+    <div class="circ"><img class="wide" src="assets/logo-lotteworld.webp" alt="Lotte World">홈 화면에서 공지 및<br>이벤트를 한눈에 확인<br>할 수 있는 정보 배치</div>
+    <div class="circ"><img class="wide" src="assets/logo-navermap.webp" alt="네이버 지도">출발·도착 선택<br>기반의 직관적인<br>길찾기 기능</div>
+    <svg class="chev" viewBox="0 0 12 22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M2 2l8 9-8 9"/></svg>
+    <div class="circ end">사용자 중심의 정보<br>구조와 편의 기능을<br>개선 방향으로 도출</div>
+  </div></div></div>
+</section>
+
+<!-- DESIGN SYSTEM -->
+<section class="inner head rv">
+  <h2>DESIGN SYSTEM</h2>
+  <p>서울대공원의 자연 친화적인 이미지와 즐거운 관람 경험을 시각적으로 전달하기 위해 디자인 시스템을 제작하였습니다. 자연과 즐거움의 이미지를 담은 색상과 폰트를 활용하여 브랜드 아이덴티티를 표현하였습니다.</p>
+</section>
+<section class="ds">
+  <div class="ds-top">
+    <p class="big2 rv">Together<br>with nature</p>
+    <img class="rv d1" src="assets/bubbles.webp" alt="">
+  </div>
+  <div class="palette rv">
+    <div><i style="background:#082F45"></i><span>#082F45<br>RGB 8 47 69</span></div>
+    <div><i style="background:#49C1C2"></i><span>#49C1C2<br>RGB 73 193 194</span></div>
+    <div><i style="background:#73E0E1"></i><span>#73E0E1<br>RGB 115 224 225</span></div>
+    <div><i style="background:#E0FA91"></i><span>#E0FA91<br>RGB 224 250 145</span></div>
+    <div><i style="background:#F2F4F7"></i><span>#F2F4F7<br>RGB 242 244 247</span></div>
+  </div>
+</section>
+
+<!-- MOOD -->
+<section class="mood">
+  <div class="phone-card rv"><img src="assets/phone-tilt.webp" alt="리뉴얼된 공원길찾기 화면"></div>
+  <div class="mood-r">
+    <div class="tags rv d1">
+      <div class="trow"><span class="tag">Nature</span><span class="tag">Zoo</span><span class="tag img"><img src="assets/tag-zoo.webp" alt=""></span><span class="tag">Play</span></div>
+      <div class="trow"><span class="tag">Bubble</span><span class="tag">Roller Coaster</span><span class="tag img"><img src="assets/tag-coaster.webp" alt=""></span></div>
+      <div class="trow"><span class="tag img"><img src="assets/tag-sky.webp" alt=""></span><span class="tag">Happy</span><span class="tag img"><img src="assets/tag-run.webp" alt=""></span><span class="tag">New</span></div>
+    </div>
+    <div class="squares">
+      <div class="rv"><img src="assets/brand-card.webp" alt="서울대공원 로고"></div>
+      <div class="rv d1"><img src="assets/bubble-photo.webp" alt="비눗방울"></div>
+    </div>
+  </div>
+</section>
+
+<!-- UI KIT -->
+<section class="inner head rv" style="padding-top:clamp(80px,8vw,150px)">
+  <h2>UI KIT</h2>
+  <p>일관성 있는 사용자 경험과 효율적인 화면 설계를 위해 UI Kit를 제작하였습니다. 아이콘, 버튼, 카드, 네비게이션 등 주요 UI 컴포넌트를 체계적으로 정리하여 화면 전반의 통일성과 사용성을 높였습니다.</p>
+</section>
+<section class="panel kit"><img class="rv" src="assets/uikit.webp" alt="UI Kit 컴포넌트 모음"></section>
+
+<!-- FEATURES -->
+<p class="big ghost" aria-hidden="true"><span class="l1">SEOUL</span><span class="l2">GRAND PARK</span></p>
+
+<section class="feat">
+  <div class="stage rv">
+    <div class="phone"><div class="scr"><img src="assets/screen-home.webp" alt="리뉴얼 홈 화면"></div><span class="island"></span><span class="bar-h"></span></div>
+  </div>
+  <div class="txt rv d1">
+    <span class="badge">1</span>
+    <h3>홈화면 리뉴얼</h3>
+    <p>기존에는 길찾기 중심의 카테고리만 제공되었던 홈 화면을 사용자가 필요한 기능과 정보를 한눈에 확인할 수 있는 구조로 개선하였습니다.</p>
+  </div>
+</section>
+
+<section class="feat rev clip">
+  <div class="stage rv">
+    <div class="phone"><div class="scr"><img src="assets/screen-map.webp" alt="리뉴얼 공원길찾기 화면"></div><span class="island"></span></div>
+  </div>
+  <div class="txt rv d1">
+    <span class="badge">2</span>
+    <h3>공원길찾기 리뉴얼</h3>
+    <p>기존의 텍스트 중심 길찾기 방식에서 벗어나 이미지 지도를 활용하여 사용자가 더욱 직관적으로 길을 찾을 수 있도록 개선하였습니다.</p>
+  </div>
+</section>
+
+<section class="feat three">
+  <div class="stage rv">
+    <div class="phone sm"><div class="scr"><img src="assets/screen-ticket.webp" alt="리뉴얼 예약안내 화면"></div><span class="island"></span><span class="bar-h"></span></div>
+    <div class="phone sm"><div class="scr"><img src="assets/screen-mypage.webp" alt="리뉴얼 마이페이지 화면"></div><span class="island"></span><span class="bar-h"></span></div>
+  </div>
+  <div class="txt rv d1">
+    <span class="badge">3</span>
+    <h3>예약안내 및<br>마이페이지 리뉴얼</h3>
+    <p>기존 예약안내 페이지와 마이페이지는 각각 외부 사이트 이동과 낮은 접근성이라는 문제를 가지고 있어 이를 개선하여 사용자가 필요한 기능에 더욱 빠르고 편리하게 접근할 수 있도록 제작하였습니다.</p>
+  </div>
+</section>
+
+<!-- END -->
+<section class="hero outro">
+  <p class="big" aria-hidden="true"><span class="l1">SEOUL</span><span class="l2">GRAND PARK</span></p>
+  <img class="phone-tilt" src="assets/phone-tilt.webp" alt="리뉴얼된 서울대공원 앱">
+  <dl class="meta">
+    <div><dt>Project</dt><dd>UI/UX Redesign</dd></div>
+    <div><dt>Participation</dt><dd>UI/UX 100%</dd></div>
+    <div><dt>Designer</dt><dd>Seo Ye Hyun</dd></div>
+  </dl>
+</section>
+<footer>© 2026 Seo Ye Hyun · Seoul Grand Park App Redesign</footer>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
